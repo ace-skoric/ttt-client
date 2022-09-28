@@ -1,0 +1,176 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/login/login.gd" id="1_ttmhi"]
+[ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_ida4b"]
+[ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_birjo"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_t4x5b"]
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_fgiyw"]
+events = [SubResource("InputEventKey_t4x5b")]
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ttmhi")
+
+[node name="Login" type="Panel" parent="."]
+custom_minimum_size = Vector2i(550, 290)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -195.0
+offset_right = 275.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Login"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 38.0
+offset_right = 175.0
+offset_bottom = 268.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+alignment = 1
+metadata/_edit_layout_mode = 1
+
+[node name="Email" type="LineEdit" parent="Login/VBox"]
+custom_minimum_size = Vector2i(350, 50)
+offset_right = 350.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../LoginButton")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Email"
+context_menu_enabled = false
+caret_blink = true
+
+[node name="Password" type="LineEdit" parent="Login/VBox"]
+custom_minimum_size = Vector2i(350, 50)
+offset_top = 62.0
+offset_right = 350.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath("../RememberMe")
+focus_previous = NodePath("../Email")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Password"
+secret = true
+context_menu_enabled = false
+caret_blink = true
+
+[node name="RememberMe" type="CheckBox" parent="Login/VBox"]
+offset_top = 124.0
+offset_right = 350.0
+offset_bottom = 151.0
+focus_next = NodePath("../LoginButton")
+focus_previous = NodePath("../Password")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+text = "Remember me"
+
+[node name="LoginButton" type="Button" parent="Login/VBox"]
+custom_minimum_size = Vector2i(200, 0)
+offset_left = 75.0
+offset_top = 163.0
+offset_right = 275.0
+offset_bottom = 230.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+focus_next = NodePath("../Email")
+focus_previous = NodePath("../RememberMe")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+shortcut_in_tooltip = false
+shortcut = SubResource("Shortcut_fgiyw")
+text = "Log in"
+
+[node name="Icon" type="TextureRect" parent="Login/VBox/LoginButton"]
+visible = false
+self_modulate = Color(0.780392, 0.976471, 1, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.00915501
+pivot_offset = Vector2(27, 27)
+texture = ExtResource("2_ida4b")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_birjo")
+metadata/_edit_layout_mode = 1
+
+[node name="LoginErrorPanel" type="Panel" parent="Login"]
+custom_minimum_size = Vector2i(300, 65)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_custom_anchors = true
+
+[node name="ErrorMessage" type="Label" parent="Login/LoginErrorPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.729412)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 18
+text = "This is an error message display"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 4
+metadata/_edit_layout_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="Login"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 54.0
+offset_right = 130.0
+offset_bottom = 109.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "Back"

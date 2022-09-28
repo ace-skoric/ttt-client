@@ -1,0 +1,123 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/startup.gd" id="1_jbje0"]
+[ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_nt47j"]
+[ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_e6lgv"]
+
+[node name="Startup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jbje0")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = -254.0
+offset_right = 182.0
+offset_bottom = -165.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.439216)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 72
+text = "Tic Tac Toe"
+
+[node name="Loader" type="TextureRect" parent="."]
+self_modulate = Color(0.780392, 0.976471, 1, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -126.0
+offset_right = 126.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.203012
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("2_nt47j")
+script = ExtResource("3_e6lgv")
+
+[node name="ConnectionErrorPopup" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2i(400, 130)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConnectionErrorPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_custom_anchors = true
+
+[node name="Message" type="Label" parent="ConnectionErrorPopup/VBoxContainer"]
+offset_right = 380.0
+offset_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.956863, 0.470588, 0.470588, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Cannot establish connection to server"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConnectionErrorPopup/VBoxContainer"]
+custom_minimum_size = Vector2i(0, 35)
+offset_top = 75.0
+offset_right = 380.0
+offset_bottom = 110.0
+alignment = 1
+
+[node name="Retry" type="Button" parent="ConnectionErrorPopup/VBoxContainer/HBoxContainer"]
+offset_right = 184.0
+offset_bottom = 35.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Try Again"
+
+[node name="VSeparator" type="VSeparator" parent="ConnectionErrorPopup/VBoxContainer/HBoxContainer"]
+offset_left = 188.0
+offset_right = 192.0
+offset_bottom = 35.0
+grow_horizontal = 2
+
+[node name="Quit" type="Button" parent="ConnectionErrorPopup/VBoxContainer/HBoxContainer"]
+offset_left = 196.0
+offset_right = 380.0
+offset_bottom = 35.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Quit"

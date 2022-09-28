@@ -1,0 +1,183 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/sign_up/sign_up.gd" id="1_y7wh4"]
+[ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_prwtl"]
+[ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_81uoa"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_t4x5b"]
+keycode = 16777221
+
+[sub_resource type="Shortcut" id="Shortcut_fgiyw"]
+events = [SubResource("InputEventKey_t4x5b")]
+
+[node name="SignUp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y7wh4")
+
+[node name="SignUp" type="Panel" parent="."]
+custom_minimum_size = Vector2i(550, 310)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -195.0
+offset_right = 275.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="SignUp"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 38.0
+offset_right = 175.0
+offset_bottom = 293.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+alignment = 1
+metadata/_edit_layout_mode = 1
+
+[node name="Username" type="LineEdit" parent="SignUp/VBox"]
+custom_minimum_size = Vector2i(350, 50)
+offset_right = 350.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../SignUpButton")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Username"
+caret_blink = true
+
+[node name="Email" type="LineEdit" parent="SignUp/VBox"]
+custom_minimum_size = Vector2i(350, 50)
+offset_top = 62.0
+offset_right = 350.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../SignUpButton")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Email"
+caret_blink = true
+
+[node name="Password" type="LineEdit" parent="SignUp/VBox"]
+custom_minimum_size = Vector2i(350, 50)
+offset_top = 124.0
+offset_right = 350.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_previous = NodePath("../Email")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Password"
+secret = true
+caret_blink = true
+
+[node name="Separator" type="Control" parent="SignUp/VBox"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 186.0
+offset_right = 350.0
+offset_bottom = 186.0
+
+[node name="SignUpButton" type="Button" parent="SignUp/VBox"]
+custom_minimum_size = Vector2i(200, 0)
+offset_left = 75.0
+offset_top = 198.0
+offset_right = 275.0
+offset_bottom = 255.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+focus_next = NodePath("../Email")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+shortcut = SubResource("Shortcut_fgiyw")
+text = "Sign up"
+
+[node name="Icon" type="TextureRect" parent="SignUp/VBox/SignUpButton"]
+visible = false
+self_modulate = Color(0.780392, 0.976471, 1, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.26878
+pivot_offset = Vector2(27, 27)
+texture = ExtResource("2_prwtl")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_81uoa")
+metadata/_edit_layout_mode = 1
+
+[node name="SignUpErrorPanel" type="Panel" parent="SignUp"]
+custom_minimum_size = Vector2i(300, 65)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_custom_anchors = true
+
+[node name="ErrorMessage" type="Label" parent="SignUp/SignUpErrorPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.729412)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 18
+text = "This is an error message display"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 4
+metadata/_edit_layout_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Back" type="Button" parent="SignUp"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 54.0
+offset_right = 130.0
+offset_bottom = 109.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "Back"

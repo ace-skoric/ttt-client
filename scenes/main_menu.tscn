@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ofuqt24mrox"]
+
+[ext_resource type="Script" path="res://scripts/main_menu/main_menu.gd" id="1_vctkr"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.0
+offset_top = -251.0
+offset_right = 284.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="VBoxContainer" parent="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -217.0
+offset_right = 249.0
+offset_bottom = 218.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+alignment = 1
+script = ExtResource("1_vctkr")
+
+[node name="Play" type="Button" parent="Panel/Container"]
+custom_minimum_size = Vector2i(0, 90)
+offset_right = 498.0
+offset_bottom = 90.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="Profile" type="Button" parent="Panel/Container"]
+custom_minimum_size = Vector2i(0, 90)
+offset_top = 115.0
+offset_right = 498.0
+offset_bottom = 205.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 32
+text = "Profile
+"
+
+[node name="SignOut" type="Button" parent="Panel/Container"]
+custom_minimum_size = Vector2i(0, 90)
+offset_top = 230.0
+offset_right = 498.0
+offset_bottom = 320.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 32
+text = "Sign out"
+
+[node name="Quit" type="Button" parent="Panel/Container"]
+custom_minimum_size = Vector2i(0, 90)
+offset_top = 345.0
+offset_right = 498.0
+offset_bottom = 435.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 32
+text = "Quit"

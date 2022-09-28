@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpu8x2noax7lt"]
+
+[ext_resource type="Script" path="res://scripts/matchmaking/matchmaking.gd" id="1_a3qq3"]
+[ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="1_jjyvn"]
+[ext_resource type="Script" path="res://scripts/loader/loader.gd" id="2_hyw2y"]
+[ext_resource type="Script" path="res://scripts/singletons/ws_client.gd" id="3_v1ly8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lg80c"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 0.619608)
+corner_detail = 1
+
+[node name="Matchmaking" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lg80c")
+script = ExtResource("1_a3qq3")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -275.0
+offset_right = 275.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 114.0
+offset_right = 550.0
+offset_bottom = 167.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 42
+text = "Searching for opponent"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpinnerContainer" type="Control" parent="Container"]
+custom_minimum_size = Vector2i(0, 128)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 207.0
+offset_right = 550.0
+offset_bottom = 335.0
+
+[node name="Spinner" type="TextureRect" parent="Container/SpinnerContainer"]
+modulate = Color(0.780392, 0.976471, 1, 1)
+custom_minimum_size = Vector2i(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 6.28186
+pivot_offset = Vector2(64, 64)
+size_flags_horizontal = 4
+texture = ExtResource("1_jjyvn")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_hyw2y")
+
+[node name="Cancel" type="Button" parent="Container"]
+custom_minimum_size = Vector2i(200, 60)
+layout_mode = 2
+offset_left = 175.0
+offset_top = 375.0
+offset_right = 375.0
+offset_bottom = 435.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 32
+text = "Cancel"
+
+[node name="WsClient" type="Node" parent="."]
+script = ExtResource("3_v1ly8")
