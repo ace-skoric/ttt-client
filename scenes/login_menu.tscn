@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://clu45r6ge8uor"]
+[gd_scene load_steps=4 format=3 uid="uid://clu45r6ge8uor"]
 
 [ext_resource type="Script" path="res://scripts/login_menu/login_menu_controller.gd" id="1_4b8qu"]
+[ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_itiy3"]
+[ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_275dl"]
 
 [node name="LoginMenu" type="Control"]
 layout_mode = 3
@@ -23,7 +25,7 @@ offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Container" type="VBoxContainer" parent="Panel"]
+[node name="Container" type="VBoxContainer" parent="Panel" node_paths=PackedStringArray("loader")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,6 +40,7 @@ grow_vertical = 2
 theme_override_constants/separation = 25
 alignment = 1
 script = ExtResource("1_4b8qu")
+loader = NodePath("../../Loader")
 
 [node name="Guest" type="Button" parent="Panel/Container"]
 custom_minimum_size = Vector2i(0, 90)
@@ -77,3 +80,28 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 32
 text = "Quit"
+
+[node name="Loader" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Loader" type="TextureRect" parent="Loader"]
+self_modulate = Color(0.780392, 0.976471, 1, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -126.0
+offset_right = 126.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("2_itiy3")
+script = ExtResource("3_275dl")

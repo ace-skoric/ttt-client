@@ -1,7 +1,7 @@
 extends Node
 
 const HttpResponse = preload("res://scripts/custom_types/http_response.gd");
-@onready var api_server: String = "https://" + ProjectSettings.get_setting("global/api_server");
+@onready var api_server: String = "https://" + (ProjectSettings.get_setting("global/%sapi_server" % ("test_" if OS.is_debug_build() else "")))
 @onready var api_headers: PackedStringArray = ProjectSettings.get_setting("global/api_headers").duplicate();
 @onready var cookie: String = "": 
 	set(c):
@@ -25,9 +25,9 @@ func new_delete(path: String, body: String = "") -> HttpResponse:
 func new_req(path: String, method: int, body: String = "") -> HttpResponse:
 	var request: HTTPRequest = HTTPRequest.new();
 	add_child(request);
-	if !request.request(api_server + path, api_headers, false, method, body):
+	if !request.request(api_server + path, api_headers, false if OS.is_debug_build() else true, method, body):
 		var res = callv("get_response", await request.request_completed);
-		request.call_deferred("queue_free");
+		request.queue_free();
 		return res;
 	else:
 		var res = HttpResponse.new();
@@ -61,7 +61,7 @@ func set_cookie_from_headers(headers: PackedStringArray):
 func set_cookie_from_file() -> bool:
 	var f: File = File.new();
 	if f.file_exists("user://cookie"):
-		f.open_encrypted_with_pass("user://cookie", File.READ, OS.get_unique_id());
+		f.open_encrypted_with_pass("user://cookie", File.READ, OS.get_unique_id() + "some_secret");
 		self.cookie = f.get_line();
 		f.close();
 		return true;
@@ -69,7 +69,7 @@ func set_cookie_from_file() -> bool:
 
 func write_cookie_to_file():
 	var f: File = File.new();
-	f.open_encrypted_with_pass("user://cookie", File.WRITE, OS.get_unique_id());
+	f.open_encrypted_with_pass("user://cookie", File.WRITE, OS.get_unique_id() + "some_secret");
 	f.store_line(cookie);
 	f.close();
 

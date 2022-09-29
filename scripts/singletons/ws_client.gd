@@ -10,7 +10,7 @@ var ws: WebSocketClient = WebSocketClient.new();
 var last_path: String = "";
 var reconnect_attempts: int = 10;
 
-@onready var api_server: String = "wss://" + ProjectSettings.get_setting("global/api_server");
+@onready var api_server: String = "wss://" + (ProjectSettings.get_setting("global/%sapi_server" % ("test_" if OS.is_debug_build() else "")))
 @onready var api_headers: PackedStringArray = [];
 @onready var cookie: String = "": 
 	set(c):
@@ -28,7 +28,7 @@ func start(path: String) -> bool:
 	last_path = path;
 	ws.connection_error.connect(func(): print("Error connecting to server!"));
 	
-	var err = ws.connect_to_url(api_server + path, PackedStringArray(), false, api_headers);
+	var err = ws.connect_to_url(api_server + path, PackedStringArray(), false if OS.is_debug_build() else true, api_headers);
 	if err != OK:
 		print("%d: Unable to connect" % err);
 		set_process(false);

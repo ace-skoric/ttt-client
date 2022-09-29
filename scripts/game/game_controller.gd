@@ -61,28 +61,39 @@ var game_state: Dictionary = {
 		game_state = state;
 		game_display.display(game_state);
 
+var start_ready: bool = false;
+
 @onready var game_display := $GameDisplay;
 @onready var loader: Panel = $Loader;
 @onready var endgame: Panel = $Endgame;
-@onready var endgame_msg: Label = $Endgame/Container/Label;
-@onready var endgame_ok_btn: Button = $Endgame/Container/Ok;
+@onready var pre_start: Control = $PreStart;
 @onready var ws: WsClient = $WsClient;
 
 func _ready() -> void:
 	game_display.display(game_state);
 	game_display.visible = false;
 	endgame.visible = false;
+	pre_start.visible = false;
 	loader.visible = true;
 	
 func start() -> void:
-	set_process(true);
-	loader.queue_free();
-	game_display.visible = true;
+	if not start_ready:
+		await pre_start.finished;
+		start_ready = true;
+	pre_start.fade_away();
 	game_display.played.connect(play);
 	game_display.hovered.connect(hover);
 	game_display.unhovered.connect(unhover);
 	game_display.resigned.connect(resign);
 	endgame.visible = false;
+	
+func starting() -> void:
+	set_process(true);
+	loader.queue_free();
+	game_display.visible = true;
+	pre_start.display(game_state["your_data"]["sign"]);
+	pre_start.finished.connect(func(): start_ready = true);
+	
 
 func play(i: int) -> void:
 	ws.send("{} {}".format([Command.PLAY, i], "{}"));
@@ -111,9 +122,9 @@ func on_command(command: String) -> void:
 	var cmd = HttpRequester.parse_body(command);
 	if typeof(cmd) == TYPE_DICTIONARY:
 		match cmd["cmd"]:
-			"error": print(cmd["msg"])
-			"starting": pass
-			"started": start()
+			"error": print(cmd["msg"]);
+			"starting": starting();
+			"started": start();
 			"game_state": self.game_state = HttpRequester.parse_body(cmd["msg"]);
 			"you_play": game_display.set_field_text(game_state["your_data"]["sign"], cmd["msg"].to_int());
 			"opp_play": game_display.set_field_text(game_state["opp_data"]["sign"], cmd["msg"].to_int());
@@ -125,19 +136,13 @@ func on_command(command: String) -> void:
 			"result": end_game(cmd["msg"]);
 			"timers": game_display.set_timers(HttpRequester.parse_body(cmd["msg"]));
 			_: print(cmd);
-		if cmd["cmd"] != "opp_hover" and cmd["cmd"] != "opp_unhover" and cmd["cmd"] != "timers":
-			print(cmd);
-			
 	else:
 		print(cmd);
 	
 func end_game(msg: String):
 	set_process(false);
 	ws.on_data.disconnect(on_command);
-	game_display.visible = false;
-	endgame.visible = true;
-	endgame_msg.text = msg;
-	endgame_ok_btn.pressed.connect(Globals.change_scene.bind("main_menu"));
+	endgame.enter(msg);
 
 func _process(_delta: float) -> void:
 	get_timers();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bskbekfefr7pk"]
+[gd_scene load_steps=10 format=3 uid="uid://bskbekfefr7pk"]
 
 [ext_resource type="Texture2D" uid="uid://c1u3yclhokc8d" path="res://assets/images/ui/pen.png" id="1_34rg7"]
 [ext_resource type="Script" path="res://scripts/game/game_controller.gd" id="1_msol3"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_roguu"]
 [ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_cd2k8"]
 [ext_resource type="Script" path="res://scripts/singletons/ws_client.gd" id="5_32q0k"]
+[ext_resource type="Script" path="res://scripts/game/endgame.gd" id="6_ho0pe"]
 [ext_resource type="FontFile" uid="uid://d1vfx271ou42p" path="res://assets/fonts/roboto/roboto-bold.ttf" id="6_midn7"]
+[ext_resource type="Script" path="res://scripts/game/pre_start.gd" id="8_yk65j"]
 
 [node name="GameController" type="Control"]
 layout_mode = 3
@@ -18,7 +20,7 @@ grow_vertical = 2
 script = ExtResource("1_msol3")
 
 [node name="GameDisplay" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,12 +29,14 @@ grow_vertical = 2
 script = ExtResource("2_164cl")
 
 [node name="OppData" type="Panel" parent="GameDisplay"]
+layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 279.0
 offset_bottom = 80.0
 
 [node name="DataContainer" type="HBoxContainer" parent="GameDisplay/OppData"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -46,17 +50,20 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VContainer" type="VBoxContainer" parent="GameDisplay/OppData/DataContainer"]
+layout_mode = 2
 offset_right = 128.0
 offset_bottom = 59.0
 grow_vertical = 2
 alignment = 1
 
 [node name="HContainer" type="HBoxContainer" parent="GameDisplay/OppData/DataContainer/VContainer"]
+layout_mode = 2
 offset_top = 5.0
 offset_right = 128.0
 offset_bottom = 27.0
 
 [node name="Name" type="Label" parent="GameDisplay/OppData/DataContainer/VContainer/HContainer"]
+layout_mode = 2
 offset_right = 102.0
 offset_bottom = 22.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -67,6 +74,7 @@ vertical_alignment = 1
 
 [node name="Pen" type="TextureRect" parent="GameDisplay/OppData/DataContainer/VContainer/HContainer"]
 custom_minimum_size = Vector2i(22, 0)
+layout_mode = 2
 offset_left = 106.0
 offset_right = 128.0
 offset_bottom = 22.0
@@ -75,6 +83,7 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Elo" type="Label" parent="GameDisplay/OppData/DataContainer/VContainer"]
+layout_mode = 2
 offset_top = 31.0
 offset_right = 128.0
 offset_bottom = 53.0
@@ -84,6 +93,7 @@ text = "1200"
 vertical_alignment = 1
 
 [node name="Time" type="Label" parent="GameDisplay/OppData/DataContainer"]
+layout_mode = 2
 offset_left = 132.0
 offset_top = 9.0
 offset_right = 258.0
@@ -97,6 +107,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Board" type="Panel" parent="GameDisplay"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -110,6 +121,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Grid" type="GridContainer" parent="GameDisplay/Board"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -126,52 +138,73 @@ theme_override_constants/v_separation = 10
 columns = 3
 
 [node name="Button0" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_right = 146.0
 offset_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
 
 [node name="Button1" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 156.0
 offset_right = 301.0
 offset_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 
 [node name="Button2" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 311.0
 offset_right = 456.0
 offset_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
 
 [node name="Button3" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_top = 156.0
 offset_right = 146.0
 offset_bottom = 301.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 0.380392, 0.517647, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
 
 [node name="Button4" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 156.0
 offset_top = 156.0
 offset_right = 301.0
@@ -179,12 +212,17 @@ offset_bottom = 301.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
 
 [node name="Button5" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 311.0
 offset_top = 156.0
 offset_right = 456.0
@@ -192,24 +230,34 @@ offset_bottom = 301.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 0.380392, 0.517647, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.533333, 0.694118, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
 
 [node name="Button6" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_top = 311.0
 offset_right = 146.0
 offset_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 0.380392, 0.517647, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
 
 [node name="Button7" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 156.0
 offset_top = 311.0
 offset_right = 301.0
@@ -217,12 +265,17 @@ offset_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
 
 [node name="Button8" type="Button" parent="GameDisplay/Board/Grid"]
+layout_mode = 2
 offset_left = 311.0
 offset_top = 311.0
 offset_right = 456.0
@@ -230,12 +283,17 @@ offset_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 0.380392, 0.517647, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
 
 [node name="PlayerData" type="Panel" parent="GameDisplay"]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -249,6 +307,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="DataContainer" type="HBoxContainer" parent="GameDisplay/PlayerData"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -263,6 +322,7 @@ grow_vertical = 2
 alignment = 2
 
 [node name="Time" type="Label" parent="GameDisplay/PlayerData/DataContainer"]
+layout_mode = 2
 offset_top = 9.0
 offset_right = 120.0
 offset_bottom = 50.0
@@ -274,6 +334,7 @@ text = "00.0"
 vertical_alignment = 1
 
 [node name="VContainer" type="VBoxContainer" parent="GameDisplay/PlayerData/DataContainer"]
+layout_mode = 2
 offset_left = 124.0
 offset_right = 256.0
 offset_bottom = 60.0
@@ -281,6 +342,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="HContainer" type="HBoxContainer" parent="GameDisplay/PlayerData/DataContainer/VContainer"]
+layout_mode = 2
 offset_top = 6.0
 offset_right = 132.0
 offset_bottom = 28.0
@@ -288,6 +350,7 @@ alignment = 1
 
 [node name="Pen" type="TextureRect" parent="GameDisplay/PlayerData/DataContainer/VContainer/HContainer"]
 custom_minimum_size = Vector2i(22, 0)
+layout_mode = 2
 offset_right = 22.0
 offset_bottom = 22.0
 texture = ExtResource("1_34rg7")
@@ -295,6 +358,7 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Name" type="Label" parent="GameDisplay/PlayerData/DataContainer/VContainer/HContainer"]
+layout_mode = 2
 offset_left = 26.0
 offset_right = 132.0
 offset_bottom = 22.0
@@ -306,6 +370,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Elo" type="Label" parent="GameDisplay/PlayerData/DataContainer/VContainer"]
+layout_mode = 2
 offset_top = 32.0
 offset_right = 132.0
 offset_bottom = 54.0
@@ -317,6 +382,7 @@ vertical_alignment = 1
 
 [node name="Resign" type="Button" parent="GameDisplay"]
 custom_minimum_size = Vector2i(200, 80)
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -332,6 +398,7 @@ text = "Resign"
 
 [node name="Loader" type="Panel" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -340,6 +407,7 @@ grow_vertical = 2
 
 [node name="Loader" type="TextureRect" parent="Loader"]
 self_modulate = Color(0.780392, 0.976471, 1, 1)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -351,19 +419,23 @@ offset_right = 126.0
 offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 6.25053
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("2_roguu")
 script = ExtResource("3_cd2k8")
 
 [node name="Endgame" type="Panel" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_ho0pe")
 
 [node name="Container" type="VBoxContainer" parent="Endgame"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -379,9 +451,69 @@ theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Label" type="Label" parent="Endgame/Container"]
-offset_top = 269.0
+custom_minimum_size = Vector2i(0, 150)
+layout_mode = 2
+offset_top = 251.0
 offset_right = 686.0
-offset_bottom = 384.0
+offset_bottom = 401.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.788235)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_midn7")
+theme_override_font_sizes/font_size = 22
+text = "label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ok" type="Button" parent="Endgame/Container"]
+custom_minimum_size = Vector2i(120, 67)
+layout_mode = 2
+offset_left = 283.0
+offset_top = 433.0
+offset_right = 403.0
+offset_bottom = 500.0
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 42
+text = "Ok"
+
+[node name="PreStart" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_yk65j")
+
+[node name="Container" type="VBoxContainer" parent="PreStart"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -343.0
+offset_top = -376.0
+offset_right = 343.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -30
+alignment = 1
+
+[node name="Label" type="Label" parent="PreStart/Container"]
+custom_minimum_size = Vector2i(0, 150)
+layout_mode = 2
+offset_top = 213.0
+offset_right = 686.0
+offset_bottom = 363.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.788235)
@@ -391,21 +523,29 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("6_midn7")
 theme_override_font_sizes/font_size = 94
-text = "label"
+text = "You are"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Ok" type="Button" parent="Endgame/Container"]
-custom_minimum_size = Vector2i(120, 67)
-offset_left = 283.0
-offset_top = 416.0
-offset_right = 403.0
-offset_bottom = 483.0
-size_flags_horizontal = 4
+[node name="Sign" type="Label" parent="PreStart/Container"]
+custom_minimum_size = Vector2i(0, 200)
+layout_mode = 2
+offset_top = 333.0
+offset_right = 686.0
+offset_bottom = 538.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.788235)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 42
-text = "Ok"
+theme_override_fonts/font = ExtResource("6_midn7")
+theme_override_font_sizes/font_size = 170
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="WsClient" type="Node" parent="."]
 script = ExtResource("5_32q0k")

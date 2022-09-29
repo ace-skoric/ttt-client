@@ -68,12 +68,30 @@ func set_turn_player(turn_player) -> void:
 func set_field_text(board_sign, i: int) -> void:
 	if typeof(board_sign) == TYPE_NIL:
 		board[i].text = "";
-	elif board_sign == Sign.X:
-		board[i].text = "X";
-		board[i].add_theme_color_override("font_color", Color("#8ce2ff"));
-	elif board_sign == Sign.O:
-		board[i].text = "O";
-		board[i].add_theme_color_override("font_color", Color("#ff6184"));
+	else:
+		var tween: Tween = create_tween();
+		tween.set_trans(Tween.TRANS_ELASTIC);
+		tween.tween_property(
+			board[i],
+			"theme_override_font_sizes/font_size",
+			72,
+			0.7
+		).from(24);
+		tween.finished.connect(func(): tween.kill());
+		if board_sign == Sign.X:
+			board[i].text = "X";
+			board[i].add_theme_color_override("font_color", Color("#8ce2ff"));
+			board[i].add_theme_color_override("font_pressed_color", Color("#b5ecff"));
+			board[i].add_theme_color_override("font_hover_color", Color("#b5ecff"));
+			board[i].add_theme_color_override("font_focus_color", Color("#b5ecff"));
+			board[i].add_theme_color_override("font_hover_pressed_color", Color("#b5ecff"));
+		elif board_sign == Sign.O:
+			board[i].text = "O";
+			board[i].add_theme_color_override("font_color", Color("#ff6184"));
+			board[i].add_theme_color_override("font_pressed_color", Color("#ff88b1"));
+			board[i].add_theme_color_override("font_hover_color", Color("#ff88b1"));
+			board[i].add_theme_color_override("font_focus_color", Color("#ff88b1"));
+			board[i].add_theme_color_override("font_hover_pressed_color", Color("#ff88b1"));
 
 func set_timers(timers: Dictionary) -> void:
 	if timers["you"] > 10:
