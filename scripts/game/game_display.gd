@@ -55,11 +55,11 @@ func hover(i: int) -> void:
 func unhover(i: int) -> void:
 	unhovered.emit(i);
 
-func opp_hover(_i: int) -> void:
-	pass;
+func opp_hover(i: int) -> void:
+	board[i].modulate = Color.RED;
 
-func opp_unhover(_i: int) -> void:
-	pass;
+func opp_unhover(i: int) -> void:
+	board[i].modulate = Color.WHITE;
 
 func set_turn_player(turn_player) -> void:
 	opp_pen.visible = turn_player == Player.OPPONENT;
