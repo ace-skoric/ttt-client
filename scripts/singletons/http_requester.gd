@@ -59,24 +59,21 @@ func set_cookie_from_headers(headers: PackedStringArray):
 			return;
 
 func set_cookie_from_file() -> bool:
-	var f: File = File.new();
-	if f.file_exists("user://cookie"):
-		f.open_encrypted_with_pass("user://cookie", File.READ, OS.get_unique_id() + "some_secret");
+	if FileAccess.file_exists("user://cookie"):
+		var f = FileAccess.open_encrypted_with_pass("user://cookie", FileAccess.READ, OS.get_unique_id() + "some_secret");
 		self.cookie = f.get_line();
 		f.close();
 		return true;
 	return false;
 
 func write_cookie_to_file():
-	var f: File = File.new();
-	f.open_encrypted_with_pass("user://cookie", File.WRITE, OS.get_unique_id() + "some_secret");
+	var f = FileAccess.open_encrypted_with_pass("user://cookie", FileAccess.WRITE, OS.get_unique_id() + "some_secret");
 	f.store_line(cookie);
 	f.close();
 
 func delete_cookie_file():
-	var f: File = File.new();
-	if f.file_exists("user://cookie"):
-		var d: Directory = Directory.new();
+	if FileAccess.file_exists("user://cookie"):
+		var d = DirAccess.new();
 		d.remove("user://cookie");
 	self.cookie = "";
 	
