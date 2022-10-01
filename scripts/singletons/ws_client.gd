@@ -6,18 +6,23 @@ signal connected
 signal on_data
 signal out_of_reconnects
 
-var ws: WebSocketClient = WebSocketClient.new();
-var last_path: String = "";
-var reconnect_attempts: int = 10;
+var tls: bool = !OS.is_debug_build() and ProjectSettings.get_setting("global/use_tls_release");
+var protocol: String = "wss://" if tls else "ws://";
+var server_setting = "global/api_server_" + "debug" if OS.is_debug_build() else "release";
 
-@onready var api_server: String = "wss://" + (ProjectSettings.get_setting("global/%sapi_server" % ("test_" if OS.is_debug_build() else "")))
-@onready var api_headers: PackedStringArray = [];
-@onready var cookie: String = "": 
+var api_server: String = protocol + ProjectSettings.get_setting(server_setting);
+
+var api_headers: PackedStringArray = [];
+var cookie: String = "": 
 	set(c):
 		cookie = c;
 		api_headers = [];
 		if !c.is_empty():
 			api_headers.append("Cookie: " + c);
+
+var ws: WebSocketClient = WebSocketClient.new();
+var last_path: String = "";
+var reconnect_attempts: int = 10;
 
 func _ready() -> void:
 	ws.verify_tls = false;

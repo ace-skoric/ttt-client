@@ -1,9 +1,14 @@
 extends Node
 
 const HttpResponse = preload("res://scripts/custom_types/http_response.gd");
-@onready var api_server: String = "https://" + (ProjectSettings.get_setting("global/%sapi_server" % ("test_" if OS.is_debug_build() else "")))
-@onready var api_headers: PackedStringArray = ProjectSettings.get_setting("global/api_headers").duplicate();
-@onready var cookie: String = "": 
+
+var tls: bool = !OS.is_debug_build() and ProjectSettings.get_setting("global/use_tls_release");
+var protocol: String = "https://" if tls else "http://";
+var server_setting = "global/api_server_" + "debug" if OS.is_debug_build() else "release";
+
+var api_server: String = protocol + ProjectSettings.get_setting(server_setting);
+var api_headers: PackedStringArray = ProjectSettings.get_setting("global/api_headers").duplicate();
+var cookie: String = "": 
 	set(c):
 		cookie = c;
 		api_headers = ProjectSettings.get_setting("global/api_headers").duplicate();
@@ -25,7 +30,7 @@ func new_delete(path: String, body: String = "") -> HttpResponse:
 func new_req(path: String, method: int, body: String = "") -> HttpResponse:
 	var request: HTTPRequest = HTTPRequest.new();
 	add_child(request);
-	if !request.request(api_server + path, api_headers, false if OS.is_debug_build() else true, method, body):
+	if !request.request(api_server + path, api_headers, tls, method, body):
 		var res = callv("get_response", await request.request_completed);
 		request.queue_free();
 		return res;
