@@ -69,8 +69,8 @@ window/stretch/aspect="expand"
 
 [global]
 
-api_server_release="ttt.askoric.me/"
-api_server_debug="localhost:8080/"
+api_server_release="ttt.askoric.me/api/v1/"
+api_server_debug="localhost:8080/api/v1/"
 use_tls_release=true
 api_headers=PackedStringArray("content-type: application/json")
 
