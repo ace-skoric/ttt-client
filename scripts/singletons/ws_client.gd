@@ -8,7 +8,7 @@ signal out_of_reconnects
 
 var tls: bool = !OS.is_debug_build() and ProjectSettings.get_setting("global/use_tls_release");
 var protocol: String = "wss://" if tls else "ws://";
-var server_setting = "global/api_server_" + "debug" if OS.is_debug_build() else "release";
+var server_setting = "global/api_server_" + ("debug" if OS.is_debug_build() else "release");
 
 var api_server: String = protocol + ProjectSettings.get_setting(server_setting);
 
@@ -33,7 +33,7 @@ func start(path: String) -> bool:
 	last_path = path;
 	ws.connection_error.connect(func(): print("Error connecting to server!"));
 	
-	var err = ws.connect_to_url(api_server + path, PackedStringArray(), false if OS.is_debug_build() else true, api_headers);
+	var err = ws.connect_to_url(api_server + path, PackedStringArray(), false, api_headers);
 	if err != OK:
 		print("%d: Unable to connect" % err);
 		set_process(false);

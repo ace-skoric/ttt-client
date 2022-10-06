@@ -4,7 +4,7 @@ const HttpResponse = preload("res://scripts/custom_types/http_response.gd");
 
 var tls: bool = !OS.is_debug_build() and ProjectSettings.get_setting("global/use_tls_release");
 var protocol: String = "https://" if tls else "http://";
-var server_setting = "global/api_server_" + "debug" if OS.is_debug_build() else "release";
+var server_setting = "global/api_server_" + ("debug" if OS.is_debug_build() else "release");
 
 var api_server: String = protocol + ProjectSettings.get_setting(server_setting);
 var api_headers: PackedStringArray = ProjectSettings.get_setting("global/api_headers").duplicate();
@@ -61,7 +61,9 @@ func set_cookie_from_headers(headers: PackedStringArray):
 		if header.begins_with("set-cookie:"):
 			var set_cookie: String = header.trim_prefix("set-cookie: ").get_slice(';', 0);
 			self.cookie = set_cookie;
-			return;
+		elif header.begins_with("Set-Cookie:"):
+			var set_cookie: String = header.trim_prefix("Set-Cookie: ").get_slice(';', 0);
+			self.cookie = set_cookie;
 
 func set_cookie_from_file() -> bool:
 	if FileAccess.file_exists("user://cookie"):

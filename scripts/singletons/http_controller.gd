@@ -56,3 +56,4 @@ func get_email_verified_status() -> bool:
 			return res.data;
 		_: 
 			return false;
+	return false;
