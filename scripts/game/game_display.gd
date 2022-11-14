@@ -1,11 +1,6 @@
 class_name GameDisplay
 extends Control
 
-var Winner = GameController.Winner;
-var Player = GameController.Player;
-var Sign = GameController.Sign;
-var State = GameController.State;
-
 signal played
 signal hovered
 signal unhovered
@@ -43,7 +38,7 @@ func display(game_state: Dictionary) -> void:
 	player_name.text = game_state["your_data"]["username"];
 	player_elo.text = str(game_state["your_data"]["elo"]);
 	for i in range(9):
-		set_field_text(game_state["board"][i], i);
+		set_field_text(game_state["board"][i], i, false);
 	set_turn_player(game_state["turn_player"]);
 
 func play(i: int) -> void:
@@ -56,42 +51,43 @@ func unhover(i: int) -> void:
 	unhovered.emit(i);
 
 func opp_hover(i: int) -> void:
-	board[i].modulate = Color.RED;
+	board[i].theme_type_variation = "OppHover";
 
 func opp_unhover(i: int) -> void:
-	board[i].modulate = Color.WHITE;
+	board[i].theme_type_variation = "";
 
 func set_turn_player(turn_player) -> void:
-	opp_pen.visible = turn_player == Player.OPPONENT;
-	player_pen.visible = turn_player == Player.YOU;
+	opp_pen.visible = turn_player == "opponent";
+	player_pen.visible = turn_player == "you";
 	
-func set_field_text(board_sign, i: int) -> void:
+func set_field_text(board_sign, i: int, animate: bool = true) -> void:
 	if typeof(board_sign) == TYPE_NIL:
 		board[i].text = "";
 	else:
-		var tween: Tween = create_tween();
-		tween.set_trans(Tween.TRANS_ELASTIC);
-		tween.tween_property(
-			board[i],
-			"theme_override_font_sizes/font_size",
-			72,
-			0.7
-		).from(24);
-		tween.finished.connect(func(): tween.kill());
-		if board_sign == Sign.X:
+		if animate:
+			var tween: Tween = create_tween();
+			tween.set_trans(Tween.TRANS_ELASTIC);
+			tween.tween_property(
+				board[i],
+				"theme_override_font_sizes/font_size",
+				72,
+				0.7
+			).from(24);
+			tween.finished.connect(func(): tween.kill());
+		if board_sign == "X":
 			board[i].text = "X";
-			board[i].add_theme_color_override("font_color", Color("#8ce2ff"));
-			board[i].add_theme_color_override("font_pressed_color", Color("#b5ecff"));
-			board[i].add_theme_color_override("font_hover_color", Color("#b5ecff"));
-			board[i].add_theme_color_override("font_focus_color", Color("#b5ecff"));
-			board[i].add_theme_color_override("font_hover_pressed_color", Color("#b5ecff"));
-		elif board_sign == Sign.O:
+			board[i].add_theme_color_override("font_color", Color("#74c7ec"));
+			board[i].add_theme_color_override("font_pressed_color", Color("#89dceb"));
+			board[i].add_theme_color_override("font_hover_color", Color("#89dceb"));
+			board[i].add_theme_color_override("font_focus_color", Color("#89dceb"));
+			board[i].add_theme_color_override("font_hover_pressed_color", Color("#89dceb"));
+		elif board_sign == "O":
 			board[i].text = "O";
-			board[i].add_theme_color_override("font_color", Color("#ff6184"));
-			board[i].add_theme_color_override("font_pressed_color", Color("#ff88b1"));
-			board[i].add_theme_color_override("font_hover_color", Color("#ff88b1"));
-			board[i].add_theme_color_override("font_focus_color", Color("#ff88b1"));
-			board[i].add_theme_color_override("font_hover_pressed_color", Color("#ff88b1"));
+			board[i].add_theme_color_override("font_color", Color("#f2cdcd"));
+			board[i].add_theme_color_override("font_pressed_color", Color("#f5e0dc"));
+			board[i].add_theme_color_override("font_hover_color", Color("#f5e0dc"));
+			board[i].add_theme_color_override("font_focus_color", Color("#f5e0dc"));
+			board[i].add_theme_color_override("font_hover_pressed_color", Color("#f5e0dc"));
 
 func set_timers(timers: Dictionary) -> void:
 	if timers["you"] > 10:
@@ -102,3 +98,47 @@ func set_timers(timers: Dictionary) -> void:
 		opp_time.text = "%.0f" % timers["opp"];
 	else:
 		opp_time.text = "%.1f" % timers["opp"];
+
+func draw_lines(game_state: Dictionary) -> void:
+	var winner: String = game_state["winner"];
+	var winner_sign: String;
+	var clr: Color;
+	if winner == "you":
+		winner_sign = game_state["your_data"]["sign"];
+		clr = "#a6e3a1";
+	elif winner == "opponent":
+		winner_sign = game_state["opp_data"]["sign"];
+		clr = "#f38ba8";
+	else: 
+		return;
+	var lines_container: Control = $Board/Lines;
+	lines_container.visible = true;
+	var lines: Array[Control] = [];
+	for i in range(8):
+		lines.append(lines_container.get_node("Line%d" % i));
+	var rows: Array[Array] = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+	var b: Array = game_state["board"];
+	var lines_val: Array[bool] = rows.map(
+		func(x): 
+			return x.map(func(i): return b[i]).all(func(y): return y==winner_sign);
+	);
+	if lines_val.all(func(x): return x==false):
+		return
+	var tween: Tween = create_tween();
+	tween.set_trans(Tween.TRANS_EXPO);
+	for i in range(8):
+		lines[i].visible = lines_val[i];
+		if lines_val[i]:
+			var line_len = lines[i].size.x;
+			lines[i].size.x = 0;
+			lines[i].modulate = clr;
+			tween.tween_property(
+				lines[i],
+				'size:x',
+				line_len,
+				1.5
+			);
+	tween.play();
+
+	await tween.finished;
+	await get_tree().create_timer(0.5).timeout;

@@ -28,14 +28,15 @@ func new_delete(path: String, body: String = "") -> HttpResponse:
 	return await new_req(path, HTTPClient.METHOD_DELETE, body);
 
 func new_req(path: String, method: int, body: String = "") -> HttpResponse:
-	var request: HTTPRequest = HTTPRequest.new();
+	var request := HTTPRequest.new();
+	request.timeout = 10.0;
 	add_child(request);
 	if !request.request(api_server + path, api_headers, tls, method, body):
 		var res = callv("get_response", await request.request_completed);
 		request.queue_free();
 		return res;
 	else:
-		var res = HttpResponse.new();
+		var res := HttpResponse.new();
 		res.data = "Could not establish connection to server.";
 		return res;
 
@@ -43,26 +44,28 @@ func get_response(_result: int, status: int, headers: PackedStringArray, data: P
 	var res = HttpResponse.new();
 	res.status = status;
 	res.headers = headers;
-	res.data = parse_body(data.get_string_from_utf8());
+	if status == 0:
+		res.data = "Cannot establish connection with the server!"
+	else:
+		res.data = parse_body(data.get_string_from_utf8());
 	return res;
 
 func parse_body(body: String) -> Variant:
-	var parser: JSON = JSON.new();
+	var parser := JSON.new();
 	var err := parser.parse(body);
 	if err == OK:
 		return parser.get_data();
 	else:
 		printerr("Error parsing string!");
-		printerr(parser.get_error_line());
 		return "";
 
 func set_cookie_from_headers(headers: PackedStringArray):
 	for header in headers:
 		if header.begins_with("set-cookie:"):
-			var set_cookie: String = header.trim_prefix("set-cookie: ").get_slice(';', 0);
+			var set_cookie := header.trim_prefix("set-cookie: ").get_slice(';', 0);
 			self.cookie = set_cookie;
 		elif header.begins_with("Set-Cookie:"):
-			var set_cookie: String = header.trim_prefix("Set-Cookie: ").get_slice(';', 0);
+			var set_cookie := header.trim_prefix("Set-Cookie: ").get_slice(';', 0);
 			self.cookie = set_cookie;
 
 func set_cookie_from_file() -> bool:

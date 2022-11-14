@@ -5,10 +5,22 @@
 [ext_resource type="Script" path="res://scripts/game/game_display.gd" id="2_164cl"]
 [ext_resource type="Texture2D" uid="uid://ci2ktktlqtrue" path="res://assets/images/ui/loader/loader.svg" id="2_roguu"]
 [ext_resource type="Script" path="res://scripts/loader/loader.gd" id="3_cd2k8"]
-[ext_resource type="Script" path="res://scripts/singletons/ws_client.gd" id="5_32q0k"]
 [ext_resource type="Script" path="res://scripts/game/endgame.gd" id="6_ho0pe"]
 [ext_resource type="FontFile" uid="uid://d1vfx271ou42p" path="res://assets/fonts/roboto/roboto-bold.ttf" id="6_midn7"]
 [ext_resource type="Script" path="res://scripts/game/pre_start.gd" id="8_yk65j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqajt"]
+bg_color = Color(1, 1, 1, 0.898039)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0823529, 0.0823529, 0.12549, 0.823529)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
 
 [node name="GameController" type="Control"]
 layout_mode = 3
@@ -51,21 +63,20 @@ grow_vertical = 2
 
 [node name="VContainer" type="VBoxContainer" parent="GameDisplay/OppData/DataContainer"]
 layout_mode = 2
-offset_right = 128.0
-offset_bottom = 59.0
+offset_right = 123.0
+offset_bottom = 60.0
 grow_vertical = 2
 alignment = 1
 
 [node name="HContainer" type="HBoxContainer" parent="GameDisplay/OppData/DataContainer/VContainer"]
 layout_mode = 2
-offset_top = 5.0
-offset_right = 128.0
-offset_bottom = 27.0
+offset_right = 123.0
+offset_bottom = 28.0
 
 [node name="Name" type="Label" parent="GameDisplay/OppData/DataContainer/VContainer/HContainer"]
 layout_mode = 2
-offset_right = 102.0
-offset_bottom = 22.0
+offset_right = 97.0
+offset_bottom = 28.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 text = "OppUsername
@@ -73,20 +84,20 @@ text = "OppUsername
 vertical_alignment = 1
 
 [node name="Pen" type="TextureRect" parent="GameDisplay/OppData/DataContainer/VContainer/HContainer"]
-custom_minimum_size = Vector2i(22, 0)
+custom_minimum_size = Vector2(22, 0)
 layout_mode = 2
-offset_left = 106.0
-offset_right = 128.0
-offset_bottom = 22.0
+offset_left = 101.0
+offset_right = 123.0
+offset_bottom = 28.0
 texture = ExtResource("1_34rg7")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Elo" type="Label" parent="GameDisplay/OppData/DataContainer/VContainer"]
 layout_mode = 2
-offset_top = 31.0
-offset_right = 128.0
-offset_bottom = 53.0
+offset_top = 32.0
+offset_right = 123.0
+offset_bottom = 60.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 text = "1200"
@@ -94,10 +105,10 @@ vertical_alignment = 1
 
 [node name="Time" type="Label" parent="GameDisplay/OppData/DataContainer"]
 layout_mode = 2
-offset_left = 132.0
-offset_top = 9.0
+offset_left = 127.0
+offset_top = 5.0
 offset_right = 258.0
-offset_bottom = 50.0
+offset_bottom = 54.0
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
@@ -148,7 +159,6 @@ theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
@@ -165,7 +175,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 
@@ -181,7 +190,6 @@ theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
@@ -198,7 +206,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
@@ -216,7 +223,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
@@ -234,7 +240,6 @@ theme_override_colors/font_pressed_color = Color(1, 0.533333, 0.694118, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
@@ -251,7 +256,6 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
@@ -269,7 +273,6 @@ theme_override_colors/font_pressed_color = Color(0.709804, 0.92549, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "X"
@@ -287,10 +290,194 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 72
 text = "O"
+
+[node name="Lines" type="Control" parent="GameDisplay/Board"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = 38.0
+offset_right = -36.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line0" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_right = 456.0
+offset_bottom = 145.333
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line1" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_top = 155.333
+offset_right = 458.0
+offset_bottom = 300.666
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line2" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_top = 310.666
+offset_right = 458.0
+offset_bottom = 455.999
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line3" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 146.0
+offset_right = 602.0
+offset_bottom = 145.333
+rotation = 1.5708
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line4" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 301.0
+offset_right = 759.0
+offset_bottom = 145.333
+rotation = 1.5708
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line4"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line5" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 456.0
+offset_right = 914.0
+offset_bottom = 145.333
+rotation = 1.5708
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line5"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -16.6665
+offset_right = 438.0
+offset_bottom = 16.3335
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line6" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 53.0
+offset_top = -50.0
+offset_right = 694.0
+offset_bottom = 95.0
+rotation = 0.785398
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line6"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -20.5
+offset_right = -32.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
+
+[node name="Line7" type="Control" parent="GameDisplay/Board/Lines"]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 506.0
+offset_top = 53.0
+offset_right = 1147.0
+offset_bottom = 198.0
+rotation = 2.35619
+
+[node name="Panel" type="Panel" parent="GameDisplay/Board/Lines/Line7"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -20.5
+offset_right = -32.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqajt")
 
 [node name="PlayerData" type="Panel" parent="GameDisplay"]
 layout_mode = 1
@@ -323,9 +510,9 @@ alignment = 2
 
 [node name="Time" type="Label" parent="GameDisplay/PlayerData/DataContainer"]
 layout_mode = 2
-offset_top = 9.0
-offset_right = 120.0
-offset_bottom = 50.0
+offset_top = 5.0
+offset_right = 126.0
+offset_bottom = 54.0
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
@@ -335,7 +522,7 @@ vertical_alignment = 1
 
 [node name="VContainer" type="VBoxContainer" parent="GameDisplay/PlayerData/DataContainer"]
 layout_mode = 2
-offset_left = 124.0
+offset_left = 130.0
 offset_right = 256.0
 offset_bottom = 60.0
 grow_vertical = 2
@@ -343,16 +530,15 @@ alignment = 1
 
 [node name="HContainer" type="HBoxContainer" parent="GameDisplay/PlayerData/DataContainer/VContainer"]
 layout_mode = 2
-offset_top = 6.0
-offset_right = 132.0
+offset_right = 126.0
 offset_bottom = 28.0
 alignment = 1
 
 [node name="Pen" type="TextureRect" parent="GameDisplay/PlayerData/DataContainer/VContainer/HContainer"]
-custom_minimum_size = Vector2i(22, 0)
+custom_minimum_size = Vector2(22, 0)
 layout_mode = 2
 offset_right = 22.0
-offset_bottom = 22.0
+offset_bottom = 28.0
 texture = ExtResource("1_34rg7")
 ignore_texture_size = true
 stretch_mode = 5
@@ -360,8 +546,8 @@ stretch_mode = 5
 [node name="Name" type="Label" parent="GameDisplay/PlayerData/DataContainer/VContainer/HContainer"]
 layout_mode = 2
 offset_left = 26.0
-offset_right = 132.0
-offset_bottom = 22.0
+offset_right = 126.0
+offset_bottom = 28.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 text = "YourUsername
@@ -372,8 +558,8 @@ vertical_alignment = 1
 [node name="Elo" type="Label" parent="GameDisplay/PlayerData/DataContainer/VContainer"]
 layout_mode = 2
 offset_top = 32.0
-offset_right = 132.0
-offset_bottom = 54.0
+offset_right = 126.0
+offset_bottom = 60.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 text = "1200"
@@ -381,7 +567,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Resign" type="Button" parent="GameDisplay"]
-custom_minimum_size = Vector2i(200, 80)
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -391,6 +577,7 @@ offset_top = 8.0
 offset_right = -12.0
 offset_bottom = 88.0
 grow_horizontal = 0
+theme_type_variation = &"LightButton"
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 42
@@ -404,9 +591,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"BasePanel"
 
 [node name="Loader" type="TextureRect" parent="Loader"]
-self_modulate = Color(0.780392, 0.976471, 1, 1)
+self_modulate = Color(0.537255, 0.862745, 0.921569, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -419,7 +607,7 @@ offset_right = 126.0
 offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 6.28238
+rotation = 6.2649
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("2_roguu")
 script = ExtResource("3_cd2k8")
@@ -432,6 +620,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"TransparentPanel"
 script = ExtResource("6_ho0pe")
 
 [node name="Container" type="VBoxContainer" parent="Endgame"]
@@ -451,7 +640,7 @@ theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Label" type="Label" parent="Endgame/Container"]
-custom_minimum_size = Vector2i(0, 150)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 offset_top = 251.0
 offset_right = 686.0
@@ -470,7 +659,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Ok" type="Button" parent="Endgame/Container"]
-custom_minimum_size = Vector2i(120, 67)
+custom_minimum_size = Vector2(120, 67)
 layout_mode = 2
 offset_left = 283.0
 offset_top = 433.0
@@ -509,11 +698,11 @@ theme_override_constants/separation = -30
 alignment = 1
 
 [node name="Label" type="Label" parent="PreStart/Container"]
-custom_minimum_size = Vector2i(0, 150)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-offset_top = 213.0
+offset_top = 209.0
 offset_right = 686.0
-offset_bottom = 363.0
+offset_bottom = 359.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.788235)
@@ -528,11 +717,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sign" type="Label" parent="PreStart/Container"]
-custom_minimum_size = Vector2i(0, 200)
+custom_minimum_size = Vector2(0, 213)
 layout_mode = 2
-offset_top = 333.0
+offset_top = 329.0
 offset_right = 686.0
-offset_bottom = 538.0
+offset_bottom = 542.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.54902, 0.886275, 1, 1)
@@ -546,6 +735,3 @@ theme_override_font_sizes/font_size = 170
 text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="WsClient" type="Node" parent="."]
-script = ExtResource("5_32q0k")

@@ -40,7 +40,7 @@ alignment = 1
 script = ExtResource("1_vctkr")
 
 [node name="Play" type="Button" parent="Panel/Container"]
-custom_minimum_size = Vector2i(0, 90)
+custom_minimum_size = Vector2(0, 90)
 offset_right = 498.0
 offset_bottom = 90.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -49,7 +49,7 @@ theme_override_font_sizes/font_size = 32
 text = "Play"
 
 [node name="Profile" type="Button" parent="Panel/Container"]
-custom_minimum_size = Vector2i(0, 90)
+custom_minimum_size = Vector2(0, 90)
 offset_top = 115.0
 offset_right = 498.0
 offset_bottom = 205.0
@@ -60,7 +60,7 @@ text = "Profile
 "
 
 [node name="SignOut" type="Button" parent="Panel/Container"]
-custom_minimum_size = Vector2i(0, 90)
+custom_minimum_size = Vector2(0, 90)
 offset_top = 230.0
 offset_right = 498.0
 offset_bottom = 320.0
@@ -70,7 +70,7 @@ theme_override_font_sizes/font_size = 32
 text = "Sign out"
 
 [node name="Quit" type="Button" parent="Panel/Container"]
-custom_minimum_size = Vector2i(0, 90)
+custom_minimum_size = Vector2(0, 90)
 offset_top = 345.0
 offset_right = 498.0
 offset_bottom = 435.0

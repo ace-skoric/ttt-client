@@ -15,10 +15,11 @@ func _ready():
 	error_panel.custom_minimum_size.y = 0;
 	sign_up_panel.size.y = 290;
 	login_btn.button_down.connect(sign_in);
-	back_btn.button_down.connect(Globals.change_scene.bind("login_menu"));
+	back_btn.button_down.connect(MainController.change_scene.bind("login_menu"));
 	
 func sign_in():
 	login_btn.disabled = true;
+	back_btn.disabled = true;
 	login_btn.text = "";
 	loading_icon.visible = true;
 	await hide_error();
@@ -29,10 +30,11 @@ func sign_in():
 	var res: HttpResponse = await HttpController.sign_in(mail, passwd, remember_me);
 	match res.status:
 		HTTPClient.RESPONSE_CREATED:
-			Globals.on_sign_in();
+			MainController.on_sign_in();
 		_:
 			await render_error(res.data);
 			login_btn.disabled = false;
+			back_btn.disabled = false;
 			login_btn.text = "Log in";
 			loading_icon.visible = false;
 
@@ -40,7 +42,7 @@ func hide_error():
 	if error_tween:
 		error_tween.kill();
 	error_tween = create_tween();
-	error_tween.parallel().tween_property(error_panel, "custom_minimum_size", Vector2i(300, 0), 0.5);
+	error_tween.parallel().tween_property(error_panel, "custom_minimum_size", Vector2(300, 0), 0.5);
 	error_tween.parallel().tween_property(sign_up_panel, "size", Vector2(500, 290), 0.5);
 	error_tween.play();
 	await error_tween.finished;
@@ -53,6 +55,6 @@ func render_error(message: String):
 	error_panel.visible = true;
 	error_tween = create_tween();
 	error_tween.parallel().tween_property(sign_up_panel, "size", Vector2(500, 390), 0.5);
-	error_tween.parallel().tween_property(error_panel, "custom_minimum_size", Vector2i(300, 65), 0.5);
+	error_tween.parallel().tween_property(error_panel, "custom_minimum_size", Vector2(300, 65), 0.5);
 	error_tween.play();
 	await error_tween.finished;
