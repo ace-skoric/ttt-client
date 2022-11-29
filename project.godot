@@ -51,6 +51,8 @@ config/custom_user_dir_name="askoric_tic_tac_toe"
 config/features=PackedStringArray("4.0")
 boot_splash/bg_color=Color(0.117647, 0.117647, 0.180392, 1)
 config/icon="res://icon.png"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -64,7 +66,6 @@ WebSocketController="*res://scripts/singletons/ws_controller.gd"
 [debug]
 
 gdscript/warnings/unused_variable=0
-gdscript/warnings/return_value_discarded=0
 
 [display]
 
@@ -76,7 +77,7 @@ window/stretch/aspect="expand"
 [global]
 
 api_server_release="ttt.askoric.me/api/v1/"
-api_server_debug="localhost:3000/api/v1/"
+api_server_debug="localhost:8080/api/v1/"
 use_tls_release=true
 api_headers=PackedStringArray("content-type: application/json")
 
